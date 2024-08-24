@@ -1,15 +1,12 @@
 import './App.css';
-import Profile from './components/Profile.jsx';
+import Gallery from './components/Gallery.jsx';
+import CardProfile from './components/CardProfile.jsx';
 
 export default function App() {
   return (
-    <Profile
-        person={{
-          name: 'Katsuko Saruhashi',
-          imageId: 'YfeOqp2',
-        }}
-        size={'b'}
-        border={'5px solid red'}
-      />
+    <div className="app">
+      {/* <Gallery /> */}
+      <CardProfile />
+    </div>
   )
 }
