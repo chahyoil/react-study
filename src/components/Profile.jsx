@@ -1,3 +1,9 @@
-export default function Profile() {
-    return <img src='https://i.imgur.com/MK3eW3Am.jpg' alt='Katherine Johnson' />;
-  }
+import Avatar from "./Avatar";
+
+export default function Profile(props) {
+  return (
+    <div className='card'>
+      <Avatar {...props} />
+    </div>
+  );
+}
