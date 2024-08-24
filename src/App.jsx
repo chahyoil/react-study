@@ -1,7 +1,13 @@
-import "./App.css";
+import './App.css';
+
+import Gallery from './components/Gallery';
+import Profile from './components/Profile';
 
 export default function App() {
-  console.log(`랜더링 됨`);
-
-  return <div>App</div>;
+  return (
+    <section>
+      <Gallery />
+      <Profile />
+    </section>
+  );
 }
