@@ -1,31 +1,31 @@
 import './App.css';
-import { people } from './lib/data';
-import Person from './components/People';
 
-export default function List() {
-  // const listItems = people.map((person, index) => <li key={person}>{person + index}</li>);
-  
-  const chemists = people.filter((person) => person.profession === '화학자');
-  const notChemists = people.filter((person) => person.profession !== '화학자');
+function Button({onClick, children}) {
+  return (
+    <button className='btn' onClick={onClick}>{children}</button>
+  )
+}
+
+function PlayButton({movieName}) {
+  function handlePlayMovie() {
+    alert(`"${movieName}" Play`);
+  }
+
+  return <Button onClick={handlePlayMovie}>"{movieName}" Play</Button>
+}
+
+function UploadButton() {
+  return <Button onClick={() => alert('업로드중')}>"Upload"</Button>
+}
+
+
+export function Toolbar() {
 
   return (
-    <section className='list_wrap'>
-      <h2>과학자</h2>
-      <h3>화학자</h3>
-      <div className='list'>
-        {chemists.map((person) => (
-          Person(person)
-        ))}
-      </div>
-
-      {/* <hr></hr> */}
-      
-      <h3>다른 과학자</h3>
-      <div className='list'>
-      {notChemists.map((person) => (
-        Person(person)
-      ))}
-      </div>
-    </section>
+    <div className='toolbar'>
+        <PlayButton movieName='The Matrix'/>
+        <PlayButton movieName='Inception'/>
+        <UploadButton/>
+    </div>
   )
 }
