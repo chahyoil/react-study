@@ -1,41 +1,30 @@
 import './App.css';
 import {useState} from 'react'
-import {sculptureList} from './lib/data'
 
-export default function Gallery() {
-  const [index, setIndex] = useState(0);
-  const [showMore, setShowMore] = useState(false);
+export default function Form() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
-  function handleChangeIndex(change) {
-    if (sculptureList && sculptureList.length > 0 && index + change >= 0 && index + change < sculptureList.length) {
-      setIndex(index + change);
-    }
+  function handleChangeFirstName(e) {
+    setFirstName(e.target.value);
   }
 
-  function handleToggleDetails() {
-    setShowMore(!showMore);
+  function handleChangeLastName(e) {
+    setLastName(e.target.value);
   }
 
-  const sculpture = sculptureList[index];
+  function handleReset() {
+    setFirstName('');
+    setLastName('');
+  }
 
   return (
-    <div className='gallery'>
-      <button type='button' className='btn' onClick={() => {handleChangeIndex(-1)}}>Prev</button>
-      <button type='button' className='btn' onClick={() => {handleChangeIndex(1)}}>Next</button>
-      <h2>
-        <i>{sculpture.name}</i> by {sculpture.artist}
-      </h2>
-      <div className='paging'>
-        ({index + 1} of {sculptureList.length}) 
-      </div>
-      <div className='img_wrap'>
-        <img src={sculpture.url} alt={sculpture.alt}/>
-      </div>
-      <button type='button' className='toggle_btn' onClick={handleToggleDetails}>
-        {showMore ? 'Hide' : 'Show'}
-      </button>
-      {showMore &&<p>{sculpture.description}</p>}
-    </div>
+    <form onSubmit ={e => e.preventDefault()}>
+      <input type="text" placeholder="first name" value={firstName} onChange={handleChangeFirstName} />
+      <input type="text" placeholder="last name" value={lastName} onChange={handleChangeLastName}/>
+
+      <p>{firstName} {lastName}</p>
+      <button type="submit" onClick={handleReset}>Submit</button>
+    </form>
   )
 }
-
