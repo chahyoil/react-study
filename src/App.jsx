@@ -1,6 +1,8 @@
 import './App.css';
 import {useState} from 'react'
 
+import Counter from './components/Counter'
+
 export default function Form() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -19,12 +21,15 @@ export default function Form() {
   }
 
   return (
-    <form onSubmit ={e => e.preventDefault()}>
-      <input type="text" placeholder="first name" value={firstName} onChange={handleChangeFirstName} />
-      <input type="text" placeholder="last name" value={lastName} onChange={handleChangeLastName}/>
+    <>
+      <form onSubmit ={e => e.preventDefault()}>
+        <input type="text" placeholder="first name" value={firstName} onChange={handleChangeFirstName} />
+        <input type="text" placeholder="last name" value={lastName} onChange={handleChangeLastName}/>
 
-      <p>{firstName} {lastName}</p>
-      <button type="submit" onClick={handleReset}>Submit</button>
-    </form>
+        <p>{firstName} {lastName}</p>
+        <button type="submit" onClick={handleReset}>Submit</button>
+      </form>
+      <Counter></Counter>
+    </>
   )
 }
