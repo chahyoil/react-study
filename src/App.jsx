@@ -20,17 +20,18 @@ export default function Gallery() {
 
   return (
     <div className='gallery'>
-      <button type='button' className='btn' onClick={() => {handleChangeIndex(1)}}>Next</button>
       <button type='button' className='btn' onClick={() => {handleChangeIndex(-1)}}>Prev</button>
+      <button type='button' className='btn' onClick={() => {handleChangeIndex(1)}}>Next</button>
       <h2>
-        <i>{sculpture.name}</i>
-        by {sculpture.artist}
+        <i>{sculpture.name}</i> by {sculpture.artist}
       </h2>
-      <div>({index + 1} of {sculptureList.length}) </div>
-      <div>
+      <div className='paging'>
+        ({index + 1} of {sculptureList.length}) 
+      </div>
+      <div className='img_wrap'>
         <img src={sculpture.url} alt={sculpture.alt}/>
       </div>
-      <button type='button' onClick={handleToggleDetails}>
+      <button type='button' className='toggle_btn' onClick={handleToggleDetails}>
         {showMore ? 'Hide' : 'Show'}
       </button>
       {showMore &&<p>{sculpture.description}</p>}
