@@ -1,42 +1,87 @@
-import {useState} from 'react'
+import { useState } from 'react';
 import './App.css';
 
-
-export default function App() {
+export default function Form() {
   const [person, setPerson] = useState({
-    firstName: 'Barbara',
-    lastName: 'Hepworth',
-    email: 'bhepworth@sculpture.com',
+    name: 'Niki de Saint Phalle',
+    artwork: {
+      title: 'Blue Nana',
+      city: 'Hamburg',
+      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    },
   });
 
-  function handleChange(e) {
-    
-    setPerson(person => ({...person, [e.target.name]: e.target.value}));
+  function handleChangeName(e) {
+    setPerson({
+      ...person,
+      name: e.target.value,
+    });
+  }
+
+  function handleChangeTitle(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        title: e.target.value,
+      },
+    });
+  }
+
+  function handleChangeCity(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        city: e.target.value,
+      },
+    });
+  }
+
+  function handleChangeImage(e) {
+    setPerson({
+      ...person,
+      artwork: {
+        ...person.artwork,
+        image: e.target.value,
+      },
+    });
   }
 
   return (
     <>
       <div>
         <label>
-          First name:
-          <input name='firstName' value={person.firstName} onChange={handleChange} />
+          Name:
+          <input value={person.name} onChange={handleChangeName} />
         </label>
       </div>
       <div>
         <label>
-          Last name:
-          <input name='lastName' value={person.lastName} onChange={handleChange} />
+          Title:
+          <input value={person.artwork.title} onChange={handleChangeTitle} />
         </label>
       </div>
       <div>
         <label>
-          Email:
-          <input name='email' value={person.email} onChange={handleChange} />
+          City:
+          <input value={person.artwork.city} onChange={handleChangeCity} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Image:
+          <input value={person.artwork.image} onChange={handleChangeImage} />
         </label>
       </div>
       <p>
-        {person.firstName} {person.lastName} ({person.email})
+        <i>{person.artwork.title}</i>
+        {' by '}
+        {person.name}
+        <br />
+        (located in {person.artwork.city})
       </p>
+      <img src={person.artwork.image} alt={person.artwork.title} />
     </>
   );
 }
