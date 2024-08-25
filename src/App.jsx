@@ -1,35 +1,28 @@
-import './App.css';
 import {useState} from 'react'
+import './App.css';
 
-import Counter from './components/Counter'
+export default function MovingDot() {
+  const [position, setPosition] = useState({x: 0, y: 0});
 
-export default function Form() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-
-  function handleChangeFirstName(e) {
-    setFirstName(e.target.value);
-  }
-
-  function handleChangeLastName(e) {
-    setLastName(e.target.value);
-  }
-
-  function handleReset() {
-    setFirstName('');
-    setLastName('');
-  }
 
   return (
-    <>
-      <form onSubmit ={e => e.preventDefault()}>
-        <input type="text" placeholder="first name" value={firstName} onChange={handleChangeFirstName} />
-        <input type="text" placeholder="last name" value={lastName} onChange={handleChangeLastName}/>
-
-        <p>{firstName} {lastName}</p>
-        <button type="submit" onClick={handleReset}>Submit</button>
-      </form>
-      <Counter></Counter>
-    </>
+    <div 
+      onPointerMove={(e) => {
+        setPosition({x: e.clientX, y: e.clientY});
+      }}
+    style={{position:'relative', height:'100vh', border:'2px solid blue'}}>
+      <div
+        style={{
+          position: 'absolute',
+          backgroundColor: 'red',
+          borderRadius: '50%',
+          transform: `translate(${position.x}px, ${position.y}px)`,
+          left: -10,
+          top: -10,
+          width: 20,
+          height: 20,
+        }}
+      />
+    </div>
   )
 }
