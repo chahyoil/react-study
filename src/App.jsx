@@ -11,41 +11,22 @@ export default function Form() {
     },
   });
 
-  function handleChangeName(e) {
-    setPerson({
-      ...person,
-      name: e.target.value,
-    });
-  }
-
-  function handleChangeTitle(e) {
-    setPerson({
-      ...person,
-      artwork: {
-        ...person.artwork,
-        title: e.target.value,
-      },
-    });
-  }
-
-  function handleChangeCity(e) {
-    setPerson({
-      ...person,
-      artwork: {
-        ...person.artwork,
-        city: e.target.value,
-      },
-    });
-  }
-
-  function handleChangeImage(e) {
-    setPerson({
-      ...person,
-      artwork: {
-        ...person.artwork,
-        image: e.target.value,
-      },
-    });
+  function handleChange(e) {
+    
+    if(e.target.name == 'name') {
+      setPerson({
+        ...person,
+        name:e.target.value,
+      })
+    } else {
+        setPerson({
+          ...person,
+          artwork: {
+            ...person.artwork,
+            [e.target.name]:e.target.value
+          },
+        })
+    }
   }
 
   return (
@@ -53,25 +34,25 @@ export default function Form() {
       <div>
         <label>
           Name:
-          <input value={person.name} onChange={handleChangeName} />
+          <input value={person.name} onChange={handleChange} />
         </label>
       </div>
       <div>
         <label>
           Title:
-          <input value={person.artwork.title} onChange={handleChangeTitle} />
+          <input value={person.artwork.title} onChange={handleChange} />
         </label>
       </div>
       <div>
         <label>
           City:
-          <input value={person.artwork.city} onChange={handleChangeCity} />
+          <input value={person.artwork.city} onChange={handleChange} />
         </label>
       </div>
       <div>
         <label>
           Image:
-          <input value={person.artwork.image} onChange={handleChangeImage} />
+          <input value={person.artwork.image} onChange={handleChange} />
         </label>
       </div>
       <p>
