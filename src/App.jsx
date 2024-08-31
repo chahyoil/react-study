@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import './App.css';
+import { useImmer } from 'use-immer';
 
 export default function Form() {
-  const [person, setPerson] = useState({
+  const [person, setPerson] = useImmer({
     name: 'Niki de Saint Phalle',
     artwork: {
       title: 'Blue Nana',
@@ -12,20 +13,14 @@ export default function Form() {
   });
 
   function handleChange(e) {
-    
-    if(e.target.name == 'name') {
-      setPerson({
-        ...person,
-        name:e.target.value,
-      })
+    if (e.target.name === 'name') {
+      setPerson((draft)=>{
+        draft.name = e.target.value;
+      });
     } else {
-        setPerson({
-          ...person,
-          artwork: {
-            ...person.artwork,
-            [e.target.name]:e.target.value
-          },
-        })
+      setPerson((draft) => {
+        draft.artwork[e.target.name] = e.target.value;
+      });
     }
   }
 
@@ -34,25 +29,25 @@ export default function Form() {
       <div>
         <label>
           Name:
-          <input value={person.name} onChange={handleChange} />
+          <input name="name" value={person.name} onChange={handleChange} />
         </label>
       </div>
       <div>
         <label>
           Title:
-          <input value={person.artwork.title} onChange={handleChange} />
+          <input name="title" value={person.artwork.title} onChange={handleChange} />
         </label>
       </div>
       <div>
         <label>
           City:
-          <input value={person.artwork.city} onChange={handleChange} />
+          <input name="city" value={person.artwork.city} onChange={handleChange} />
         </label>
       </div>
       <div>
         <label>
           Image:
-          <input value={person.artwork.image} onChange={handleChange} />
+          <input name="image" value={person.artwork.image} onChange={handleChange} />
         </label>
       </div>
       <p>
