@@ -1,14 +1,24 @@
 import './App.css';
 import { useState } from 'react';
+import { v4 as uuidv4 } from "uuid"; // ES Modules
 
-function Panel({title, isActive, children, onShow}) {
+function Panel({title, isActive, text, onShow}) {
   return (
     <div className="panel">
       <h3>{title}</h3>
-      {isActive ? <p>{children}</p> : <button type="button" onClick={onShow}>Show</button>}
+      {isActive ? <p>{text}</p> : <button type="button" onClick={onShow}>Show</button>}
     </div>
   )
 }
+
+const initPanel = [
+  {id : uuidv4(), title : "About", content : "With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city."},
+  {id : uuidv4(), title : "History", content : "The city was founded in 1929 by the municipality of Almaty. The city's name was changed to Almaty city in 1950. In 1997, Almaty became the capital of the country."},
+  {id : uuidv4(), title : "Culture", content : "Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city."},
+  {id : uuidv4(), title : "Food", content : "The city was founded in 1929 by the municipality of Almaty. The city's name was changed to Almaty city in 1950. In 1997, Almaty became the capital of the country."},
+  {id : uuidv4(), title : "Transport", content : "Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city."},
+  {id : uuidv4(), title : "Culture", content : "The city was founded in 1929 by the municipality of Almaty. The city's name was changed to Almaty city in 1950. In 1997, Almaty became the capital of the country."},
+]
 
 export default function Accordion() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -16,41 +26,16 @@ export default function Accordion() {
   return (
     <div className='accordion'>
     <h2>Almaty, Kazakhstan</h2>
-      <Panel
-        title="About"
-        isActive={activeIndex === 0}
-        onShow={() => setActiveIndex(0)}
-        >
-        With a population of about 2 million, Almaty is Kazakhstan's largest
-        city. From 1929 to 1997, it was its capital city.
-      </Panel>
-      <Panel
-        title="Etymology"
-        isActive={activeIndex === 1}
-        onShow={() => setActiveIndex(1)}
-      >
-        The name comes from, the Kazakh word for "apple" and is often translated
-        as "full of apples". In fact, the region surrounding Almaty is thought
-        to be the ancestral home of the apple, and the wild Malus sieversii is
-        considered a likely candidate for the ancestor of the modern domestic
-        apple.
-      </Panel>
-      <Panel
-        title="Nonono"
-        isActive={activeIndex === 2}
-        onShow={() => setActiveIndex(2)}
-        >
-        With a population of about 2 million, Almaty is Kazakhstan's largest
-        city. From 1929 to 1997, it was its capital city.
-      </Panel>
-      <Panel
-        title="GoGoGo"
-        isActive={activeIndex === 3}
-        onShow={() => setActiveIndex(3)}
-        >
-        With a population of about 2 million, Almaty is Kazakhstan's largest
-        city. From 1929 to 1997, it was its capital city.
-      </Panel>
+      {initPanel.map((panel) => (
+        <Panel
+          key={panel.id}
+          title={panel.title}
+          text={panel.content}
+          isActive={activeIndex === panel.id}
+          onShow={() => setActiveIndex(panel.id)}
+          >
+        </Panel>
+      ))}
     </div>
   )
 }
