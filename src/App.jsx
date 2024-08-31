@@ -1,67 +1,30 @@
 import './App.css';
 import { useState } from 'react';
 
-const initialProducts = [{
-  id: 0,
-  name: 'Baklava',
-  count: 1,
-}, {
-  id: 1,
-  name: 'Cheese',
-  count: 5,
-}, {
-  id: 2,
-  name: 'Spaghetti',
-  count: 2,
-}];
+const initTodos = [
+  { id: 1, text: '할일 1' },
+  { id: 2, text: '할일 2' },
+  { id: 3, text: '할일 3' },
+  { id: 4, text: '할일 4' },
+];
 
-export default function ShoppingCart() {
-  const [
-    products,
-    setProducts
-  ] = useState(initialProducts)
+export default function App() {
+  const [todos, setTodos] = useState(initTodos);
 
-  function handleClick(productId, action) {
-    const newProducts = products.map(product => {
-      if (product.id === productId) {
-        if(action === 'minus') {
-          return {
-            ...product,
-            count: Math.max(product.count - 1, 0)
-          }
-        } else if(action === 'plus') {
-          return {
-            ...product,
-            count: product.count + 1
-          }
-        }
-      }
-      return product;
-    });
-    setProducts(newProducts);
-  };
-
+  function handleAdd(idx) {
+    setTodos([
+      ...todos.slice(0,idx),
+      {id : Date.now(), text: '추가된 할일'},
+      ...todos.slice(idx),
+    ]);
+  }
 
   return (
-    <ul>
-      {products.map(product => (
-        <li key={product.id}>
-          {product.name}
-          {' '}
-          (<b>{product.count}</b>)
-          <button onClick={() => {
-            handleClick(product.id, 'minus');
-          }}>
-            -
-          </button>
-          
-          <button onClick={() => {
-            handleClick(product.id, 'plus');
-          }}>
-            +
-          </button>
-        </li>
+    <div>
+      <button type="button" onClick={() => {handleAdd(2)}}>특정위치에 추가</button>
+      {todos.map((todo) => (
+        <p key={todo.id}>{todo.text}</p>
       ))}
-    </ul>
-  );
+    </div>
+  )
 }
