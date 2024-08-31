@@ -34,6 +34,19 @@ export default function ShoppingCart() {
     setProducts(newProducts);
   }
 
+  function handleMinus(productId) {
+    const newProducts = products.map(product => {
+      if (product.id === productId) {
+        return {
+          ...product,
+          count: Math.max(product.count -1, 0)
+        }
+      }
+      return product;
+    });
+    setProducts(newProducts);
+  }
+
   return (
     <ul>
       {products.map(product => (
@@ -41,6 +54,12 @@ export default function ShoppingCart() {
           {product.name}
           {' '}
           (<b>{product.count}</b>)
+          <button onClick={() => {
+            handleMinus(product.id);
+          }}>
+            -
+          </button>
+          
           <button onClick={() => {
             handleIncrease(product.id);
           }}>
