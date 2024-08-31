@@ -1,29 +1,47 @@
 import './App.css';
 import { useState } from 'react';
 
-const initialArtists = [
-  { id: 0, name: 'Marta Colvin Andrade' },
-  { id: 1, name: 'Lamidi Olonade Fakeye' },
-  { id: 2, name: 'Louise Nevelson' },
+const initialShapes = [
+  { id: 0, type: 'circle', x: 50, y: 100 },
+  { id: 1, type: 'square', x: 150, y: 100 },
+  { id: 2, type: 'circle', x: 250, y: 100 },
 ];
 
-// 배열에 요소 추가
-export default function List() {
-  const [artists, setArtists] = useState(initialArtists);
+export default function ShapeEditor() {
+  const [shapes, setShapes] = useState(initialShapes);
+
+  function handleClick() {
+    setShapes(
+      shapes.map((shape) => {
+        if(shape.type === 'circle') {
+          return {
+            ...shape,
+            y: shape.y + 50,
+          };
+        } else {
+          return shape;
+        }
+      })
+    )
+  }
 
   return (
-    <div>
-      <h2>영감을 주는 조각가:</h2>
-      <ul>
-        {artists.map((artists) => (
-          <li key={artists.id}>
-            {artists.name}
-            <button type='button' onClick={() => {
-              setArtists(artists.filter((item) => item.id !== artists.id))}}>
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
+    <>
+      <button onClick={handleClick}>원만 아래로 이동</button>
+      {shapes.map((shape) => (
+        <div
+          key={shape.id}
+          style={{
+            background: 'purple',
+            position: 'absolute',
+            left: shape.x,
+            top: shape.y,
+            borderRadius: shape.type === 'circle' ? '50%' : '',
+            width: 20,
+            height: 20,
+          }}
+        />
+      ))}
+    </>
+  );
 }
