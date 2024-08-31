@@ -1,47 +1,37 @@
 import './App.css';
 import { useState } from 'react';
 
-const initialShapes = [
-  { id: 0, type: 'circle', x: 50, y: 100 },
-  { id: 1, type: 'square', x: 150, y: 100 },
-  { id: 2, type: 'circle', x: 250, y: 100 },
-];
+export default function CounterList() {
+  const [counters, setCounters] = useState([0, 0, 0]);
 
-export default function ShapeEditor() {
-  const [shapes, setShapes] = useState(initialShapes);
-
-  function handleClick() {
-    setShapes(
-      shapes.map((shape) => {
-        if(shape.type === 'circle') {
-          return {
-            ...shape,
-            y: shape.y + 50,
-          };
-        } else {
-          return shape;
-        }
+  function handleIncrement(index) {
+    setCounters(
+      counters.map((counter, i) => {
+      //   if(i === index) {
+      //     return counter + 1;
+      //   } else {
+      //     return counter;
+      //   }
+      return i === index ? counter + 1 : counter;
       })
-    )
+    );
   }
-
+  
   return (
-    <>
-      <button onClick={handleClick}>원만 아래로 이동</button>
-      {shapes.map((shape) => (
-        <div
-          key={shape.id}
-          style={{
-            background: 'purple',
-            position: 'absolute',
-            left: shape.x,
-            top: shape.y,
-            borderRadius: shape.type === 'circle' ? '50%' : '',
-            width: 20,
-            height: 20,
-          }}
-        />
+    <ul>
+      {counters.map((counter, i) => (
+        <li key={i}>
+          {counter}{' '}
+          <button
+            type="button"
+            onClick={() => {
+              handleIncrement(i);
+            }}
+          >
+            +1
+          </button>
+        </li>
       ))}
-    </>
+    </ul>
   );
 }
