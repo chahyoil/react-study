@@ -21,31 +21,26 @@ export default function ShoppingCart() {
     setProducts
   ] = useState(initialProducts)
 
-  function handleIncrease(productId) {
+  function handleClick(productId, action) {
     const newProducts = products.map(product => {
       if (product.id === productId) {
-        return {
-          ...product,
-          count: product.count + 1
+        if(action === 'minus') {
+          return {
+            ...product,
+            count: Math.max(product.count - 1, 0)
+          }
+        } else if(action === 'plus') {
+          return {
+            ...product,
+            count: product.count + 1
+          }
         }
       }
       return product;
     });
     setProducts(newProducts);
-  }
+  };
 
-  function handleMinus(productId) {
-    const newProducts = products.map(product => {
-      if (product.id === productId) {
-        return {
-          ...product,
-          count: Math.max(product.count -1, 0)
-        }
-      }
-      return product;
-    });
-    setProducts(newProducts);
-  }
 
   return (
     <ul>
@@ -55,13 +50,13 @@ export default function ShoppingCart() {
           {' '}
           (<b>{product.count}</b>)
           <button onClick={() => {
-            handleMinus(product.id);
+            handleClick(product.id, 'minus');
           }}>
             -
           </button>
           
           <button onClick={() => {
-            handleIncrease(product.id);
+            handleClick(product.id, 'plus');
           }}>
             +
           </button>
