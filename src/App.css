@@ -5,3 +5,32 @@
     box-sizing: border-box;
     font-size: 16px;
 }
+
+.tab_menu button.active{
+    background: red;
+}
+
+.tab_contents {
+    display: flex; /* Flexbox를 사용하여 자식 요소를 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: left; /* 자식 요소들을 수평 중앙 정렬 */
+}
+
+.tab_contents .content {
+    display: none;
+    width: 20%; /* 원하는 너비로 설정 */
+    max-width: 400px; /* 최대 너비 제한 */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, background 0.5s ease;
+    padding: 15px; /* 패딩을 추가하여 내용이 내부에 여유 공간을 가짐 */
+    box-sizing: border-box; /* 패딩과 보더를 너비에 포함 */
+}
+
+.tab_contents .content.active {
+    opacity: 1;
+    display: block;
+    visibility: visible;
+    background: lightblue;
+}
+
