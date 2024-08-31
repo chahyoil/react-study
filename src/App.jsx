@@ -8,6 +8,14 @@ const initTodos = [
   { id: 4, text: '할일 4' },
 ];
 
+/* 
+  배열 CRUD
+  - Create : [...기존 배열, 추가될 내용]
+  - Read   : map(), key에 고유값 저장
+  - Update : map() 돌리며 고유 id와 비교하여 업데이트
+  - Delete : filter()로 id와 일치하지 않는 요소로 새로운 배열을 생성
+*/
+
 export default function App() {
   const [todos, setTodos] = useState(initTodos);
 
