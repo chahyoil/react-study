@@ -20,6 +20,11 @@
     border: 1px solid #999;
     border-top : none;
     padding: 15px;
+    transition: background 1s ease;
+}
+
+.accordion .panel.active{
+    background: aqua;
 }
 
 .accordion .panel:nth-of-type(1){

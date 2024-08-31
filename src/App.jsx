@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid"; // ES Modules
 
 function Panel({title, isActive, text, onShow}) {
   return (
-    <div className="panel">
+    <div className={`panel ${isActive ? "active" : ""}`}>
       <h3>{title}</h3>
       {isActive ? <p>{text}</p> : <button type="button" onClick={onShow}>Show</button>}
     </div>
