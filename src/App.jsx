@@ -1,34 +1,50 @@
 import './App.css';
 import { useState } from 'react';
 
-export default function CounterList() {
-  const [counters, setCounters] = useState([0, 0, 0]);
+const initialProducts = [{
+  id: 0,
+  name: 'Baklava',
+  count: 1,
+}, {
+  id: 1,
+  name: 'Cheese',
+  count: 5,
+}, {
+  id: 2,
+  name: 'Spaghetti',
+  count: 2,
+}];
 
-  function handleIncrement(index) {
-    setCounters(
-      counters.map((counter, i) => {
-      //   if(i === index) {
-      //     return counter + 1;
-      //   } else {
-      //     return counter;
-      //   }
-      return i === index ? counter + 1 : counter;
-      })
-    );
+export default function ShoppingCart() {
+  const [
+    products,
+    setProducts
+  ] = useState(initialProducts)
+
+  function handleIncrease(productId) {
+    const newProducts = products.map(product => {
+      if (product.id === productId) {
+        return {
+          ...product,
+          count: product.count + 1
+        }
+      }
+      return product;
+    });
+    setProducts(newProducts);
   }
-  
+
   return (
     <ul>
-      {counters.map((counter, i) => (
-        <li key={i}>
-          {counter}{' '}
-          <button
-            type="button"
-            onClick={() => {
-              handleIncrement(i);
-            }}
-          >
-            +1
+      {products.map(product => (
+        <li key={product.id}>
+          {product.name}
+          {' '}
+          (<b>{product.count}</b>)
+          <button onClick={() => {
+            handleIncrease(product.id);
+          }}>
+            +
           </button>
         </li>
       ))}
