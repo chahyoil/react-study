@@ -1,59 +1,28 @@
 import './App.css';
 import React, { useState, useRef, useEffect, forwardRef } from 'react';
 
-const MyInput = forwardRef(function MyInput({ text, value, onChange, name, shouldFocus }) {
-  const inputRef = useRef(null);
+export default function Counter() {
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    
-    if (shouldFocus) {
-      inputRef.current.focus();
+    let intervalId = 0;
+    function onTick() {
+      setCounter((counter) => counter + 1);
     }
+  
+    intervalId = setInterval(onTick, 1000);
 
+    // setInterval을 useEffect안에 두더라도 2번씩 렌더링 되는 문제를 막을 수 없음. 클로저에서 clearInterval을 해줘서 한번만 실행되도록 보장
+    // 이전 setInterval을 clean up!
     return () => {
-      console.log('unmount');
+      clearInterval(intervalId);
     }
-  }, [inputRef]); // inputRef를 의존성 배열에 추가
+    
+  }, [])
 
   return (
-    <label>
-      <span>{text}을 입력하세요: </span>
-      <input type="text" ref={inputRef} onChange={onChange} value={value} name={name} />
-    </label>
-  );
-});
-
-// displayName 설정
-MyInput.displayName = 'MyInput';
-
-export default function Input() {
-  const [isShow, setIsShow] = useState(false);
-  const [names, setNames] = useState({
-    firstName : 'Taylor',
-    lastName : 'Swift',
-  });
-
-  function handleChangeName(e) {
-    setNames({...names, [e.target.name] : e.target.value});
-  }
-
-  return (
-    <div className='app'>
-      <button type='button' onClick={() => setIsShow(!isShow)}>
-        form {isShow ? 'hide' : 'show'}
-      </button>
-      {isShow && (
-        <div className='form_wrap'>
-          {<MyInput text={'이름'}
-              value={names.firstName}
-              onChange={handleChangeName} 
-              name='firstName' 
-              shouldFocus={true}
-              />}
-          {<MyInput text={'성'} value={names.lastName} onChange={handleChangeName} name='lastName' />}
-          <p>안녕하세요, <b>{names.firstName} {names.lastName}</b></p>
-        </div>
-        )}
+    <div>
+      {counter}
     </div>
-  );
+  )
 }
