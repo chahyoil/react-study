@@ -11,6 +11,7 @@ export default function StopWatch() {
   const passedTime = (now - startTime) / 1000;
 
   function handleStart() {
+    clearInterval(intervalIdRef.current);
     setStartTime(Date.now());
     setNow(Date.now());
 
