@@ -19,8 +19,15 @@
     gap: 10px 0;
 }
 
-.form_wrap label {
-    display: inline-block;
-    /* border: 1px solid red; */
-    width: 140px;
+.form_wrap span {
+    margin-right:10px;
+    width:150px;
 }
+
+.form_wrap label {
+    display: flex;
+    /* border: 1px solid red; */
+    width: auto;
+    align-items: center; /* 수직 정렬을 중앙으로 설정 */
+}
+

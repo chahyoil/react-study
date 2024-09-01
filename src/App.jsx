@@ -1,11 +1,12 @@
 import './App.css';
 import React, { useState, useRef, useEffect, forwardRef } from 'react';
 
-const MyInput = forwardRef(function MyInput({ text, onChange }, inputRef) {
+const MyInput = forwardRef(function MyInput({ text, value, onChange, name, shouldFocus }) {
+  const inputRef = useRef(null);
 
   useEffect(() => {
     
-    if (inputRef.current) {
+    if (shouldFocus) {
       inputRef.current.focus();
     }
 
@@ -17,7 +18,7 @@ const MyInput = forwardRef(function MyInput({ text, onChange }, inputRef) {
   return (
     <label>
       <span>{text}을 입력하세요: </span>
-      <input type="text" ref={inputRef} onChange={onChange}/>
+      <input type="text" ref={inputRef} onChange={onChange} value={value} name={name} />
     </label>
   );
 });
@@ -27,29 +28,32 @@ MyInput.displayName = 'MyInput';
 
 export default function Input() {
   const [isShow, setIsShow] = useState(false);
-  const inputRef0 = useRef(null);
-  const inputRef1 = useRef(null);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [names, setNames] = useState({
+    firstName : 'Taylor',
+    lastName : 'Swift',
+  });
 
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
+  function handleChangeName(e) {
+    setNames({...names, [e.target.name] : e.target.value});
+  }
 
   return (
     <div className='app'>
-        <button type='button' onClick={() => setIsShow(!isShow)}>
-          form {isShow ? 'hide' : 'show'}
-        </button>
+      <button type='button' onClick={() => setIsShow(!isShow)}>
+        form {isShow ? 'hide' : 'show'}
+      </button>
+      {isShow && (
         <div className='form_wrap'>
-          {isShow && <MyInput ref={inputRef0} text={'이름'} onChange={handleFirstNameChange} />}
-          {isShow && <MyInput ref={inputRef1} text={'성'} onChange={handleLastNameChange} />}
-          <p>안녕하세요, <b>{firstName} {lastName}</b></p>
+          {<MyInput text={'이름'}
+              value={names.firstName}
+              onChange={handleChangeName} 
+              name='firstName' 
+              shouldFocus={true}
+              />}
+          {<MyInput text={'성'} value={names.lastName} onChange={handleChangeName} name='lastName' />}
+          <p>안녕하세요, <b>{names.firstName} {names.lastName}</b></p>
         </div>
+        )}
     </div>
   );
 }
