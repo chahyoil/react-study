@@ -3,33 +3,20 @@ import { useRef ,useState} from 'react';
 
 
 // 스톱워치
-export default function StopWatch() {
-  const [startTime, setStartTime] = useState(0); // 시작시간
-  const [now, setNow] = useState(0); // 현재시간
-  let intervalIdRef = useRef(0);
+export default function Form() {
+  const inputRef = useRef(null);
 
-  const passedTime = (now - startTime) / 1000;
-
-  function handleStart() {
-    clearInterval(intervalIdRef.current);
-    setStartTime(Date.now());
-    setNow(Date.now());
-
-    intervalIdRef.current = setInterval(() => {
-      setNow(Date.now());
-    }, 10)
-  }
-
-  function handleStop() {
-    console.log(`intervalId: ${intervalIdRef.current}`);
-    clearInterval(intervalIdRef.current);
+  function handleClick() {
+    inputRef.current.focus();
+    // JS방식도 가능하지만 렌더링시 선택이 안되는 경우가 있기에, 쓸 때 조심.
+    // document.querySelector('#loginId').focus();
   }
 
   return (
-    <>
-      <p>Time passed: {passedTime.toFixed(3)}</p>
-      <button onClick={handleStart}>Start</button>
-      <button onClick={handleStop}>Stop</button>
-    </>
+    <div>
+      <input id='loginId' type="text"  ref={inputRef}/>
+      <button type='button' onClick={handleClick}>입력필드로 포커스 이동</button>
+    </div>
   )
 }
+
