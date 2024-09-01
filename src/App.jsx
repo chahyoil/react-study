@@ -1,73 +1,46 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 
-// 첫 번째 Counter 컴포넌트 (의존성 배열에 [counter] 포함)
-function CounterWithDependency() {
-  const [counter, setCounter] = useState(0);
-  const [renderCount, setRenderCount] = useState(0);
 
-  useEffect(() => {
-    // 렌더링 횟수 증가
-    setRenderCount((prev) => prev + 1);
-
-    let intervalId = 0;
-    function onTick() {
-      setCounter(counter + 1);
-    }
-
-    intervalId = setInterval(onTick, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [counter]);
-
-  return (
-    <div>
-      <h2>CounterWithDependency</h2>
-      <p>Count: {counter}</p>
-      <p>Render Count: {renderCount}</p>
-    </div>
-  );
+function hardCalc(num) {
+  console.time('어려운 계산 시간이 얼마나 걸리나?');
+  for (let i = 0; i < 999999999; i++) {
+    num + 1;
+  }
+  console.timeEnd('어려운 계산 시간이 얼마나 걸리나?');
+  return num + 10000;
 }
 
-// 두 번째 Counter 컴포넌트 (의존성 배열에 [] 포함)
-function CounterWithoutDependency() {
-  const [counter, setCounter] = useState(0);
-  const [renderCount, setRenderCount] = useState(0);
+function easyCalc(num) {
+  console.time('쉬운계산 시간이 얼마나 걸리나?');
 
-  useEffect(() => {
-    // 렌더링 횟수 증가
-    setRenderCount((prev) => prev + 1);
-
-    let intervalId = 0;
-    function onTick() {
-      setCounter((prevCounter) => prevCounter + 1);
-    }
-
-    intervalId = setInterval(onTick, 1000);
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-
-  return (
-    <div>
-      <h2>CounterWithoutDependency</h2>
-      <p>Count: {counter}</p>
-      <p>Render Count: {renderCount}</p>
-    </div>
-  );
+  console.timeEnd('쉬운계산 시간이 얼마나 걸리나?');
+  return num + 1;
 }
 
-// 메인 App 컴포넌트
 export default function App() {
+  const [hardNum, setHardNum] = useState(1);
+  const [easyNum, setEasyNum] = useState(1);
+
+  const hardSum = useMemo(() => hardCalc(hardNum), [hardNum]);
+  const easySum = easyCalc(easyNum);
+
   return (
     <div>
-      <h1>React Counter Comparison</h1>
-      <CounterWithDependency />
-      <CounterWithoutDependency />
+      <h2>어려운 계산</h2>
+      <input
+        type="number"
+        value={hardNum}
+        onChange={(e) => setHardNum(parseInt(e.target.value))}
+      />
+      <span> + 10000 = {hardSum}</span>
+      <h2>쉬운 계산</h2>
+      <input
+        type="number"
+        value={easyNum}
+        onChange={(e) => setEasyNum(parseInt(e.target.value))}
+      />
+      <span> + 1 = {easySum}</span>
     </div>
   );
 }
