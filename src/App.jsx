@@ -1,22 +1,34 @@
 import './App.css';
 import { useRef ,useState} from 'react';
 
-
 // 스톱워치
 export default function Form() {
-  const inputRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
 
   function handleClick() {
-    inputRef.current.focus();
-    // JS방식도 가능하지만 렌더링시 선택이 안되는 경우가 있기에, 쓸 때 조심.
-    // document.querySelector('#loginId').focus();
+    setIsPlaying(!isPlaying);
+
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+
   }
 
   return (
-    <div>
-      <input id='loginId' type="text"  ref={inputRef}/>
-      <button type='button' onClick={handleClick}>입력필드로 포커스 이동</button>
-    </div>
+    <>
+      <button onClick={handleClick}>
+        {isPlaying ? 'Stop' : 'Start'}
+      </button>
+      <video width="250" ref={videoRef}>
+        <source
+          src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+          type="video/mp4"
+        />
+      </video>
+    </>
   )
 }
 
