@@ -1,26 +1,34 @@
+import { useRef ,useState} from 'react';
 import './App.css';
-import {useState, createContext} from 'react';
-import Header from './components/comm/Header';
-import Footer from './components/comm/Footer';
 
-// 전역컨텍스트
-export const ThemeContext = createContext(null);
+const initTodos = [
+  {id : 1, text: '할일 1'},
+  {id : 2, text: '할일 2'},
+  {id : 3, text: '할일 3'},
+  {id : 4, text: '할일 4'}
+]
 
 export default function App() {
+  const [todos, setTodos] = useState(initTodos);
+  const idRef = useRef(4);
 
-  function toggleTheme() {
-    setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle('dark')
+  function handleClick() {
+    idRef.current++;
+    console.log(`idRef.current : ${idRef.current}`); // idRef.current의 값을 로그에 출력
+    setTodos((prev) => [...prev, {id: idRef.current, text: `할일 ${idRef.current}`}])
   }
 
-  const [isDarkMode, setIsDarkMode] = useState(false);
   return (
-    <div className='app'>
-      <ThemeContext.Provider value={{isDarkMode, toggleTheme}}>
-        <Header />
-        <main className='container'>메인컨텐츠</main>
-        <Footer/>
-      </ThemeContext.Provider>
-    </div>
+    <>
+      <button type='button' onClick={handleClick}>
+        할일 추가
+      </button>
+      <ul>
+        {todos.map((todo) => (
+          <li key={todo.id}>{todo.text}</li>
+        ))}
+      </ul>
+    </>
   )
 }
+
