@@ -2,6 +2,25 @@ import './App.css';
 import { useRef ,useState, useEffect} from 'react';
 
 function Test() {
+  const [count, setCount] = useState(0);
+  
+  // 하나의 함수 내에서 intervalId를 일반 변수로 설정할 수 있음.
+  // 외부 변수와 연결된 경우에는 useRef 및 forwardRef를 사용해야 함.
+  let intervalId = 0;
+  // let intervalId = useRef(0);
+
+  useEffect(() => {
+
+    console.log(`useEffect count: ${count}`);
+    
+    intervalId = setInterval(() => {
+      setCount(count + 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    }
+  }, [count])
 
   useEffect(() => {
     function handleScroll() {
@@ -16,7 +35,7 @@ function Test() {
     }
   }, []);
 
-  return <h2>Test</h2>
+  return <h2>Test {count}</h2>
 }
 
 export default function App() {
