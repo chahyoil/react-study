@@ -1,34 +1,34 @@
-import { useRef ,useState} from 'react';
 import './App.css';
+import { useRef ,useState} from 'react';
 
-const initTodos = [
-  {id : 1, text: '할일 1'},
-  {id : 2, text: '할일 2'},
-  {id : 3, text: '할일 3'},
-  {id : 4, text: '할일 4'}
-]
 
-export default function App() {
-  const [todos, setTodos] = useState(initTodos);
-  const idRef = useRef(4);
+// 스톱워치
+export default function StopWatch() {
+  const [startTime, setStartTime] = useState(0); // 시작시간
+  const [now, setNow] = useState(0); // 현재시간
+  let intervalIdRef = useRef(0);
 
-  function handleClick() {
-    idRef.current++;
-    console.log(`idRef.current : ${idRef.current}`); // idRef.current의 값을 로그에 출력
-    setTodos((prev) => [...prev, {id: idRef.current, text: `할일 ${idRef.current}`}])
+  const passedTime = (now - startTime) / 1000;
+
+  function handleStart() {
+    setStartTime(Date.now());
+    setNow(Date.now());
+
+    intervalIdRef.current = setInterval(() => {
+      setNow(Date.now());
+    }, 10)
+  }
+
+  function handleStop() {
+    console.log(`intervalId: ${intervalIdRef.current}`);
+    clearInterval(intervalIdRef.current);
   }
 
   return (
     <>
-      <button type='button' onClick={handleClick}>
-        할일 추가
-      </button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.text}</li>
-        ))}
-      </ul>
+      <p>Time passed: {passedTime.toFixed(3)}</p>
+      <button onClick={handleStart}>Start</button>
+      <button onClick={handleStop}>Stop</button>
     </>
   )
 }
-
