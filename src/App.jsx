@@ -1,51 +1,55 @@
 import './App.css';
-import { useRef ,useState, useEffect} from 'react';
+import React, { useState, useRef, useEffect, forwardRef } from 'react';
 
-function Test() {
-  const [count, setCount] = useState(0);
-  
-  // 하나의 함수 내에서 intervalId를 일반 변수로 설정할 수 있음.
-  // 외부 변수와 연결된 경우에는 useRef 및 forwardRef를 사용해야 함.
-  let intervalId = 0;
-  // let intervalId = useRef(0);
+const MyInput = forwardRef(function MyInput({ text, onChange }, inputRef) {
 
   useEffect(() => {
-
-    console.log(`useEffect count: ${count}`);
     
-    intervalId = setInterval(() => {
-      setCount(count + 1);
-    }, 1000);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
 
     return () => {
-      clearInterval(intervalId);
+      console.log('unmount');
     }
-  }, [count])
+  }, [inputRef]); // inputRef를 의존성 배열에 추가
 
-  useEffect(() => {
-    function handleScroll() {
-      console.log(window.scrollY);
-    }
-    window.addEventListener('scroll', handleScroll);
+  return (
+    <label>
+      <span>{text}을 입력하세요: </span>
+      <input type="text" ref={inputRef} onChange={onChange}/>
+    </label>
+  );
+});
 
-    // cleanup function
-    // 함수 안에서 리턴된 함수를 '클로저'
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
+// displayName 설정
+MyInput.displayName = 'MyInput';
 
-  return <h2>Test {count}</h2>
-}
+export default function Input() {
+  const [isShow, setIsShow] = useState(false);
+  const inputRef0 = useRef(null);
+  const inputRef1 = useRef(null);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
-export default function App() {
-  const [isShow, setIsShow] = useState(true);
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
   return (
     <div className='app'>
-      <button type='button' onClick={() => setIsShow(!isShow)}>
-        테스트컴포넌트 토글
-      </button>
-      {isShow && <Test />}
+        <button type='button' onClick={() => setIsShow(!isShow)}>
+          form {isShow ? 'hide' : 'show'}
+        </button>
+        <div className='form_wrap'>
+          {isShow && <MyInput ref={inputRef0} text={'이름'} onChange={handleFirstNameChange} />}
+          {isShow && <MyInput ref={inputRef1} text={'성'} onChange={handleLastNameChange} />}
+          <p>안녕하세요, <b>{firstName} {lastName}</b></p>
+        </div>
     </div>
-  )
+  );
 }
