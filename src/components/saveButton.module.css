@@ -1,0 +1,18 @@
+.wrap {
+    padding: 20px;
+    display:flex;
+    align-items: center;
+    gap: 0 20px;
+}
+
+.save_btn {
+    padding:0 10px;
+    height: 40px;
+    border:1px solid #333;
+    border-radius:4px;
+    background: #e6a671;
+}
+
+.save_btn.active {
+    background: #c3e671;
+}

@@ -6,7 +6,7 @@ export function useOnlineStatus() {
   useEffect(() => {
     const checkOnlineStatus = async () => {
       try {
-        const response = await fetch("https://example.com/ping", {
+        const response = await fetch("https://google.com/", {
           method: "GET",
           mode: "no-cors",
         });
