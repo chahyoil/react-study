@@ -1,0 +1,24 @@
+.todo_item{
+    margin-bottom: 10px;
+    display:flex;
+    gap: 0 10px;
+}
+
+.todo_item label{
+    flex-grow:1;
+}
+
+.todo_item.active label {
+    text-decoration: line-through;
+    color:#999;
+}
+
+.todo_item .remove_btn{
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid var(--point-color1);
+    border-radius: 4px;
+    color: var(--point-color1);
+    background: none;
+    
+}
