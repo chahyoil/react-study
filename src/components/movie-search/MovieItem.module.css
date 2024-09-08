@@ -1,0 +1,32 @@
+.year {
+    font-size: 14px;
+    color: #7e7e7e;
+}
+
+.img_wrap {
+    aspect-ratio: 9 / 13;
+    margin: 5px 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.img_wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.txt_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px 0;
+}
+
+.txt_wrap em {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.txt_wrap strong {
+    word-break: break-all;
+}

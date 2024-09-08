@@ -1,11 +1,16 @@
 .todo_item{
     margin-bottom: 10px;
     display:flex;
+    align-items: center;
     gap: 0 10px;
 }
 
 .todo_item label{
     flex-grow:1;
+    /* 줄바꿈 공백을 유지 시켜줌 */
+    /* white-space: pre-wrap; */
+    /* 줄바꿈 공백을 제거해줌 */
+    white-space: pre-line;
 }
 
 .todo_item.active label {
@@ -36,4 +41,6 @@
     border-radius: 4px;
     color: var(--point-color2);
     background: none;
+    /* 안줄어들게 */
+    flex-shrink: 0;
 }

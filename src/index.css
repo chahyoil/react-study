@@ -402,6 +402,7 @@ input[type='checkbox']:checked + label::before {
   width: 18px;
   height: 18px;
   border: 1px solid #999;
+  flex-shrink: 0;
 }
 /* :has - ios 15.4부터 지원 */
 .checkbox:has(input[type="checkbox"]:checked)::before {
