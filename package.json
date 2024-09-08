@@ -12,6 +12,8 @@
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-textarea-autosize": "^8.5.3",
+    "textarea-autosize": "^1.0.0",
     "use-immer": "^0.10.0",
     "uuid": "^10.0.0"
   },

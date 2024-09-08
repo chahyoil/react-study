@@ -13,6 +13,13 @@
     color:#999;
 }
 
+.todo_item .edit_input{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding:5px;
+}
+
 .todo_item .remove_btn{
     height: 32px;
     padding: 0 10px;
@@ -20,5 +27,13 @@
     border-radius: 4px;
     color: var(--point-color1);
     background: none;
-    
+}
+
+.todo_item .edit_btn{
+    height: 32px;
+    width: 40px;
+    border: 1px solid var(--point-color2);
+    border-radius: 4px;
+    color: var(--point-color2);
+    background: none;
 }
