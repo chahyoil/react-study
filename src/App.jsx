@@ -26,12 +26,12 @@ export default function App() {
       const response = await fetch(`${API_URL}&s=${title}&page=${page}${type !== 'All' ? `&type=${type}` : ''}`);
       // json 객체 -> js 객체로 변환
       const data = await response.json();
-      
+
       // 년도기준 내림차순 정렬
       const sortedData = data.Search?.sort((a, b) => a.Year < b.Year ? 1 : -1);
       
       setMovies(sortedData);
-      setTotalPage(Math.ceil(data.totalResults / 10));
+      setTotalPage(data.totalResults ? Math.ceil(data.totalResults / 10) : 0);
     };
     fetchMovies(title);
   }, [title, page, type]);

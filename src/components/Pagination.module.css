@@ -2,6 +2,7 @@
     margin-top: 15px;
     display: flex;
     justify-content: center;
+    gap: 0 5px;
 }
 
 .pagination button {

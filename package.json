@@ -15,7 +15,8 @@
     "react-textarea-autosize": "^8.5.3",
     "textarea-autosize": "^1.0.0",
     "use-immer": "^0.10.0",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

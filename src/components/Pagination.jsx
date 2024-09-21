@@ -18,6 +18,13 @@ export default function Pagination({page, totalPage, setPage}) {
 
     // totalPage로 현재페이지 배열을 구성
     useEffect(() => {
+        if (totalPage <= 0 || isNaN(totalPage)) {
+            setTotalPageArr([]);
+            setCurrentPageArr([]);
+            return;
+        }
+
+
         const pageGroup = sliceArrayByLimit(totalPage, limit);
         setTotalPageArr(pageGroup);
         setCurrentPageArr(pageGroup[page - 1]);
@@ -34,13 +41,14 @@ export default function Pagination({page, totalPage, setPage}) {
 
     return (
         <div className={styles.pagination}>
-            <button onClick={() => handlePage(page - 1)}>Prev</button>
+            {!isNaN(totalPage) && page !== 1 && <button onClick={() => handlePage(page - 1)}>Prev</button>}
             {currentPageArr?.map((index) => (
                 <button key={index}
                      onClick={() => setPage(index + 1)} 
                  className={page === index + 1 ? styles.active : ''}>{index + 1}</button>
             ))}
-            <button onClick={() => handlePage(page + 1)}>Next</button>
+            {!isNaN(totalPage) && totalPage > 0 && page !== totalPage && <button onClick={() => handlePage(page + 1)}>Next</button>}
         </div>
     )
 }
+
