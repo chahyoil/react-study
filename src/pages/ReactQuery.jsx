@@ -8,7 +8,14 @@ export default function ReactQuery() {
   
   const {isLoading, data, isError, error} = useQuery({
     queryKey: ['userInfo'],
-    queryFn: () => fetch('/people').then((res) => res.json())
+    queryFn: () => fetch('/people').then((res) => res.json()),
+    // gcTime: 5000,
+    // staleTime기본값은 0이며, 서버의 데이터 변경사항을 실시간으로 감지하여 가져옴
+    // 자주변경되지않는 데이터인 경우 시간을 늘려 서버요청을 줄여줌
+    // staleTime: 5000,
+    // 백그라운드에서 시간마다 데이터 주기적으로 요청(실시간 데이터)
+    // refetchInterval: 2000,
+    // refetchIntervalInBackground: true,
   });
 
   
