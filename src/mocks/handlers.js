@@ -13,6 +13,16 @@ export const handlers = [
     // 배열 데이터를 json으로 응답
     return HttpResponse.json(people);
   }),
+  http.get('/people/:id', async ({ params }) => {
+    await sleep(200);
+    // url파라메터 구조분해
+    const { id } = params;
+    // 배열 데이터를 json으로 응답
+    return HttpResponse.json(
+      // id 파라메터가 문자이므로 숫자로 변환후 배열요소중 id와 동일한 요소찾기
+      people.filter((person) => person.id === parseInt(id))
+    );
+  }),
   http.post('/people', async ({ request }) => {
     await sleep(200);
     // 요청객체중 요청 body로 넘어온 내용을 js 객체로 변환
