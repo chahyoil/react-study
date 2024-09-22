@@ -8,6 +8,10 @@ const menus = [
         menu: 'React Query',
         path: '/react-query',
     },
+    {
+        menu: 'Parallel Query',
+        path: '/parallel-query',
+    },
 ]
 
 

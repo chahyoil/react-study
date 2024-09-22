@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw';
 // 배열데이터 가져오기
 import people from './dummy.json'; // 정적 import로 변경
+import product from './product.json';
 
 // 서버로 요청이 들어왔을때 실행될 http메서드(요청핸들러)
 // http.get(): 서버 데이터 가져오기(Read)
@@ -31,6 +32,11 @@ export const handlers = [
     people.push(item);
 
     return HttpResponse.json(people);
+  }),
+  http.get('/product', async () => {
+    await sleep(200);
+
+    return HttpResponse.json(product);
   }),
 ];
 
