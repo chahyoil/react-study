@@ -1,0 +1,26 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.btn {
+    margin: 10px;
+    color: black;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.btn.dark-mode {
+    color: white;
+    background-color: #333;
+    border: 1px solid white;
+}
+
+.toolbar.dark-mode {
+    background-color: #222;
+}

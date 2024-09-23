@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.gallery {
+    padding: 20px;
+}
+
+.gallery .btn {
+    margin-right: 10px;
+}
+
+.gallery h2 {
+    font-size: 24px;
+    margin-top : 15px;
+    word-break: break-all;
+}
+
+.gallery .paging {
+    font-size:14px;
+    margin-top : 5px 0;
+}
+
+.gallery .img_wrap {
+    width : 20vw;
+    /* height: 20vh; */
+    aspect-ratio: 1 / 1;
+    margin-bottom: 20px;
+}
+
+.gallery img {
+    width : 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery .toggle_btn {
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    line-height: 30px;
+}
+
+.gallery p {
+    line-height: 1.5;
+    color: var(--gray-400);
+}
